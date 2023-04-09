@@ -6,8 +6,8 @@ $db = new Medoo(
 	'database_type' => 'mysql',
 	'database_name' => 'information_schema',
 	'server' => 'localhost',
-	'username' => '************',
-	'password' => '************',
+	'username' => 'tid3b_vtuser',
+	'password' => '*t1i2d334b5',
 	'charset' => 'utf8',
 	]);
 
@@ -23,6 +23,12 @@ function metin_b($ad,$metin){
 	return '
 <div class="form-group">
 	<textarea class="form-control" rows="3" name="'.$ad.'" id="'.$ad.'" placeholder="'.$metin.'"></textarea>
+</div>';
+}
+function sayi($ad,$metin){
+	return '
+<div class="form-group">
+	<input type="number" class="form-control" id="'.$ad.'" placeholder="'.$metin.'">
 </div>';
 }
 ?>
@@ -57,12 +63,16 @@ function goster(){
 	text-align:right;
 	width:500px;	
 }
+body{
+	padding:20px;
+}
 </style>
 </head>
 
 <body>
-Formunu oluşturacağınız veritabanını ve sonra tablosunu seçerek, formda görmek istediğiniz alanları işaretleyin. Gönder butonuna basın. Göster diyerek kodları kopyalayın.
+<div>Formunu oluşturacağınız veritabanını ve sonra tablosunu seçerek, formda görmek istediğiniz alanları işaretleyin. Gönder butonuna basın. Göster diyerek kodları kopyalayın.</div>
 <?php
+
 
 $vtler = $db->select("SCHEMATA","*");
 echo '<select onchange="window.location=\'?vt=\'+this.options[this.selectedIndex].value"><option>Veritabanı Seç</option>';
@@ -94,7 +104,7 @@ if(isset($_GET['vt']) && isset($_GET['tb'])){
 	}
 	?>
 	
-	<form action="form2.php?f=1<?php echo '&vt='.$_GET['vt'].'&tb='.$_GET['tb']; ?>" method="post" name="secim" id="secim">
+	<form action="index.php?f=1<?php echo '&vt='.$_GET['vt'].'&tb='.$_GET['tb']; ?>" method="post" name="secim" id="secim">
 	<script>
 	function ekle(alan,alan2,yer,sec){
 		
@@ -107,7 +117,7 @@ if(isset($_GET['vt']) && isset($_GET['tb'])){
 	$aciklama="";
 	for($j=0;$j<count($alan);$j++){
 		echo '<div class="isaretle" id="div'.$j.'">'.$alan[$j][0].' '.$alan[$j][1].' '.$alan[$j][2].' 
-		<input type="checkbox" name="'.$alan[$j][0].'*'.$alan[$j][1].'*'.$alan[$j][2].'" id="'.$alan[$j][0].'*'.$alan[$j][1].'*'.$alan[$j][2].'" onclick="ekle(\''.$alan[$j][0].'\',\''.$alan[$j][3].'\',\'div'.$j.'\',\''.$alan[$j][0].'*'.$alan[$j][1].'*'.$alan[$j][2].'\')" /></div>		
+		<input type="checkbox" name="'.$alan[$j][0].'*'.$alan[$j][1].'*'.$alan[$j][2].'" id="'.$alan[$j][0].'*'.$alan[$j][1].'*'.$alan[$j][2].'" onclick="ekle(\''.$alan[$j][0].'\',\''.htmlentities($alan[$j][3], ENT_QUOTES | ENT_IGNORE, "UTF-8").'\',\'div'.$j.'\',\''.$alan[$j][0].'*'.$alan[$j][1].'*'.$alan[$j][2].'\')" /></div>		
 		';
 	}
 	?>
@@ -134,11 +144,11 @@ foreach($_POST as $veri){
 	}else{
 		$dilimler = explode("*", key($_POST));
 		switch($tur){
-	case 'varchar': echo metin_k($alan,$veri); break;
-	case 'text': echo metin_b($alan,$veri); break;
-	case 'int': echo metin_k($alan,$veri); break;
-	case 'datetime': echo metin_k($alan,$veri); break;
-	default: echo metin_k($alan,$veri); break;
+			case 'varchar': echo metin_k($alan,$veri); break;
+			case 'text': echo metin_b($alan,$veri); break;
+			case 'int': echo sayi($alan,$veri); break;
+			case 'datetime': echo metin_k($alan,$veri); break;
+			default: echo metin_k($alan,$veri); break;
 		}
 		
 	}
