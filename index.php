@@ -6,8 +6,8 @@ $db = new Medoo(
 	'database_type' => 'mysql',
 	'database_name' => 'information_schema',
 	'server' => 'localhost',
-	'username' => 'tid3b_vtuser',
-	'password' => '*t1i2d334b5',
+	'username' => '',
+	'password' => '',
 	'charset' => 'utf8',
 	]);
 
