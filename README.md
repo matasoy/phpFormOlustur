@@ -4,4 +4,4 @@ medoo dosyasında veritabanı bilgilerinizi girin. Sayfayı açtığınızda ver
 
 Kodların içinde php insert komutları da vardır. Oluşturulen form bootstrap uyumludur.
 
-![Örnek Sahne](ScreenForm.gif) 
+![Örnek Sahne](ScreenForm2.gif) 
